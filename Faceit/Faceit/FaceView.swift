@@ -11,6 +11,7 @@ import UIKit
 @IBDesignable
 class FaceView: UIView {
     var scale : CGFloat = 0.7
+    @IBInspectable
     var eyeOpen : Bool = true
     var mouthCurvature : Double = 2.0
     private var skullRadius : CGFloat {
