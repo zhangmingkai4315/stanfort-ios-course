@@ -10,10 +10,54 @@ import UIKit
 
 @IBDesignable
 class FaceView: UIView {
-    var scale : CGFloat = 0.7
+    
+    @objc func changeScale(byReactinTo pinchRecognizer : UIPinchGestureRecognizer){
+        switch pinchRecognizer.state {
+        case .changed, .ended:
+            scale *= pinchRecognizer.scale
+            pinchRecognizer.scale = 1
+            break;
+        default:
+            break;
+        }
+    }
+    
+    
     @IBInspectable
-    var eyeOpen : Bool = true
-    var mouthCurvature : Double = 2.0
+    var scale : CGFloat = 0.7{
+        didSet{
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable
+    var eyeOpen : Bool = true{
+        didSet{
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable
+    var lineWidth : CGFloat = 5.0{
+        didSet{
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable
+    var color : UIColor = UIColor.blue{
+        didSet{
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable
+    var mouthCurvature : Double = 2.0{
+        didSet{
+            setNeedsDisplay()
+        }
+    }
+    
     private var skullRadius : CGFloat {
         return min(bounds.size.width, bounds.size.height)/2 * scale
     }
@@ -30,7 +74,6 @@ class FaceView: UIView {
         let mouthWidth = skullRadius / Ratios.skullRaidusToMouthWidth
         let mouthHeight = skullRadius / Ratios.skullRaidusToMouthHeight
         let mouthOffset = skullRadius / Ratios.skullRaidusToMouthOffset
-        
         let mouthRect = CGRect(
             x: skullCenter.x - mouthWidth/2,
             y: skullCenter.y + mouthOffset,
@@ -48,7 +91,7 @@ class FaceView: UIView {
         
         path.move(to: start)
         path.addCurve(to: end, controlPoint1: cp1, controlPoint2: cp2)
-        path.lineWidth = 3.0
+        path.lineWidth = lineWidth
         return path
     }
     
@@ -78,13 +121,13 @@ class FaceView: UIView {
     
     private func pathForSkull() -> UIBezierPath{
         let path = UIBezierPath(arcCenter: skullCenter, radius: skullRadius, startAngle: 0, endAngle:CGFloat(2*Double.pi), clockwise: false)
-        path.lineWidth = 2
+        path.lineWidth = lineWidth
        
         return path
     }
     
     override func draw(_ rect: CGRect) {
-        UIColor.blue.set()
+        color.set()
         pathForSkull().stroke()
         pathForEye(Eye.left).stroke()
         pathForEye(Eye.right).stroke()
