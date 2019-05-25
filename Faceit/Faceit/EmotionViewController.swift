@@ -27,6 +27,4 @@ class EmotionViewController: UIViewController {
             }
         }
     }
-
-
 }
