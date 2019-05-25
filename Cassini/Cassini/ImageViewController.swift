@@ -17,14 +17,31 @@ class ImageViewController: UIViewController
         }
     }
     
+//    private func fetchImage(){
+//        if let url = imageURL{
+//            let urlContent = try? Data(contentsOf: url)
+//            if let imageData = urlContent{
+//                image = UIImage(data:imageData)
+//            }
+//        }
+//    }
+    
     private func fetchImage(){
         if let url = imageURL{
-            let urlContent = try? Data(contentsOf: url)
-            if let imageData = urlContent{
-                image = UIImage(data:imageData)
+            spinner?.startAnimating()
+            DispatchQueue.global(qos: .userInitiated).async {[weak self] in
+                let urlContent = try? Data(contentsOf: url)
+                if let imageData = urlContent, url == self?.imageURL{
+                    // set ui should in main queue
+                    DispatchQueue.main.async {
+                        self?.image = UIImage(data:imageData)
+                    }
+                }
             }
         }
     }
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var scrollView: UIScrollView!{
         didSet{
@@ -45,6 +62,7 @@ class ImageViewController: UIViewController
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+            spinner?.stopAnimating()
         }
     }
     

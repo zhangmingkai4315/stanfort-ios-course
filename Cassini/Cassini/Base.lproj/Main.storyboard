@@ -78,6 +78,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="g6y-3d-brY">
+                                <rect key="frame" x="189" y="350" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="02x-or-qTF">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </scrollView>
@@ -94,6 +99,7 @@
                     <navigationItem key="navigationItem" id="zdo-xq-DvN"/>
                     <connections>
                         <outlet property="scrollView" destination="02x-or-qTF" id="tDM-bQ-NXy"/>
+                        <outlet property="spinner" destination="g6y-3d-brY" id="Mye-qn-wep"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U4U-8S-lYX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -151,6 +157,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Tkd-Mt-f5y"/>
+        <segue reference="M5m-a1-9Ku"/>
     </inferredMetricsTieBreakers>
 </document>

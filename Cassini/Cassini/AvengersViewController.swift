@@ -8,7 +8,21 @@
 
 import UIKit
 
-class AvengersViewController: UIViewController {
+class AvengersViewController: UIViewController,UISplitViewControllerDelegate {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.splitViewController?.delegate=self
+    }
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        if primaryViewController.contents == self{
+            if let ivc = secondaryViewController.contents as? ImageViewController, ivc.imageURL == nil{
+                return true
+            }
+        }
+        return false
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let url = AvengersURL.Avengers[segue.identifier ?? ""]{
             if let imageVC = (segue.destination.contents as? ImageViewController){
