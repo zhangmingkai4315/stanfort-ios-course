@@ -12,7 +12,7 @@ struct Card {
     var isMatched = false
     var identifier : Int
     static var idFactory = 0
-    static func getUniqueID()->Int{
+    static func getUniqueID()->Int{	
         idFactory+=1
         return idFactory
     }
