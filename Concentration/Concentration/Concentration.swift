@@ -7,12 +7,21 @@
 //
 
 import Foundation
-struct Card {
+struct Card : Hashable{
     var isFaceUp = false
     var isMatched = false
-    var identifier : Int
-    static var idFactory = 0
-    static func getUniqueID()->Int{	
+    private var identifier : Int
+    
+    var hashValue: Int{
+        return identifier
+    }
+    
+    static func ==(lhs: Card, rhs: Card)->Bool{
+        return lhs.identifier == rhs.identifier
+    }
+    
+    private static var idFactory = 0
+    private static func getUniqueID()->Int{
         idFactory+=1
         return idFactory
     }
@@ -36,32 +45,35 @@ extension MutableCollection{
 }
 
 
-class Concentration{
-    var cards = Array<Card>()
+struct Concentration{
+    private(set) var cards = Array<Card>()
+    private var indexOfOneAndOnlyFaceUpCard: Int?{
+        get {
+            return cards.indices.filter{cards[$0].isFaceUp}.oneAndOnly
+        }
+        set {
+            for index in cards.indices{
+                cards[index].isFaceUp = (index == newValue)
+            }
+        } 
+    }
     
-    var indexOfOneAndOnlyFaceUpCard: Int?
-    
-    func chooseCard(at index:Int){
+    mutating func chooseCard(at index:Int){
+        assert(cards.indices.contains(index),"Concentration.chooseCard(at:\(index)) chosen index not the cards")
         if !cards[index].isMatched{
             if let matchIndex = indexOfOneAndOnlyFaceUpCard, matchIndex != index{
-                // check if cards match
-                if cards[matchIndex].identifier == cards[index].identifier{
+                if cards[matchIndex] == cards[index]{
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
                 }
                 cards[index].isFaceUp = true
-                indexOfOneAndOnlyFaceUpCard = nil
             }else{
-                // no cards or 2 card are face up
-                for flipDownIndex in cards.indices{
-                    cards[flipDownIndex].isFaceUp = false
-                }
-                cards[index].isFaceUp = true
                 indexOfOneAndOnlyFaceUpCard = index
             }
         }
     }
     init(numberOfPairsOfCards :Int){
+        assert(numberOfPairsOfCards > 0, "Concentration:init(numberOfPairsOfCards :\(numberOfPairsOfCards)) must greater than 0")
         for _ in 1...numberOfPairsOfCards{
            let card = Card()
             cards.append(card)
@@ -71,3 +83,11 @@ class Concentration{
         cards.shuffer()
     }
 }
+
+
+extension Collection {
+    var oneAndOnly : Element?{
+        return count == 1 ? first : nil
+    }
+}
+
