@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ConcentrationViewController: UIViewController {
     
     private lazy var game  = Concentration(numberOfPairsOfCards:numberOfPairsOfCards)
     
@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     private func updateFlipCountLabel(){
         let attributes : [NSAttributedStringKey: Any] = [
             .strokeWidth: 5.0,
-            .strokeColor: UIColor.yellow,
+            .strokeColor: UIColor.black,
             ]
         let attributedString = NSAttributedString(string: "Flips: \(flipCount)", attributes: attributes)
         flipCounterLabel.attributedText=attributedString
@@ -49,18 +49,29 @@ class ViewController: UIViewController {
     }
     
     private func updateViewFromModal() {
-        for index in cardButtons.indices{
-            let button = cardButtons[index]
-            let card = game.cards[index]
-            if card.isFaceUp{
-                button.setTitle(emoji(for: card), for: .normal)
-                button.backgroundColor=#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-            }else{
-                button.setTitle("", for: .normal)
-                button.backgroundColor=card.isMatched ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 1, green: 0.5390133716, blue: 0.0120538998, alpha: 1)
+        if cardButtons != nil{
+            for index in cardButtons.indices{
+                let button = cardButtons[index]
+                let card = game.cards[index]
+                if card.isFaceUp{
+                    button.setTitle(emoji(for: card), for: .normal)
+                    button.backgroundColor=#colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                }else{
+                    button.setTitle("", for: .normal)
+                    button.backgroundColor=card.isMatched ? #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0) : #colorLiteral(red: 0, green: 0.5690457821, blue: 0.5746168494, alpha: 1)
+                }
             }
         }
     }
+    
+    var theme : String?{
+        didSet{
+            emojiChoices = theme ?? ""
+            emoji = [:]
+            updateViewFromModal()
+        }
+    }
+    
     private var emojiChoices : String = "🐝🙊😀🕷🦈🌳"
     
     private var emoji = [Card : String]()
