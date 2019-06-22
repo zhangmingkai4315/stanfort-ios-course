@@ -7,29 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EB7A357C229923FF004FEC0E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7A357B229923FF004FEC0E /* AppDelegate.swift */; };
-		EB7A3581229923FF004FEC0E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7A357F229923FF004FEC0E /* Main.storyboard */; };
-		EB7A358322992402004FEC0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB7A358222992402004FEC0E /* Assets.xcassets */; };
-		EB7A358622992402004FEC0E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB7A358422992402004FEC0E /* LaunchScreen.storyboard */; };
-		EB7A358F229924BA004FEC0E /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7A358E229924BA004FEC0E /* ImageViewController.swift */; };
-		EB7A3591229927B3004FEC0E /* AvengersURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7A3590229927B3004FEC0E /* AvengersURL.swift */; };
-		EB7A35932299376D004FEC0E /* AvengersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7A35922299376D004FEC0E /* AvengersViewController.swift */; };
+		983BBDA222BE687D00BDA279 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983BBDA122BE687D00BDA279 /* AppDelegate.swift */; };
+		983BBDA422BE687D00BDA279 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983BBDA322BE687D00BDA279 /* ImageViewController.swift */; };
+		983BBDA722BE687D00BDA279 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983BBDA522BE687D00BDA279 /* Main.storyboard */; };
+		983BBDA922BE687D00BDA279 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983BBDA822BE687D00BDA279 /* Assets.xcassets */; };
+		983BBDAC22BE687D00BDA279 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983BBDAA22BE687D00BDA279 /* LaunchScreen.storyboard */; };
+		983BBDB522BE6B6500BDA279 /* DemoURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983BBDB422BE6B6500BDA279 /* DemoURL.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		EB7A3578229923FF004FEC0E /* Cassini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cassini.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EB7A357B229923FF004FEC0E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EB7A3580229923FF004FEC0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		EB7A358222992402004FEC0E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EB7A358522992402004FEC0E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		EB7A358722992402004FEC0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EB7A358E229924BA004FEC0E /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
-		EB7A3590229927B3004FEC0E /* AvengersURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvengersURL.swift; sourceTree = "<group>"; };
-		EB7A35922299376D004FEC0E /* AvengersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvengersViewController.swift; sourceTree = "<group>"; };
+		983BBD9E22BE687D00BDA279 /* Cassini.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cassini.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		983BBDA122BE687D00BDA279 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		983BBDA322BE687D00BDA279 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		983BBDA622BE687D00BDA279 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		983BBDA822BE687D00BDA279 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		983BBDAB22BE687D00BDA279 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		983BBDAD22BE687D00BDA279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		983BBDB422BE6B6500BDA279 /* DemoURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoURL.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		EB7A3575229923FF004FEC0E /* Frameworks */ = {
+		983BBD9B22BE687D00BDA279 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,41 +37,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EB7A356F229923FF004FEC0E = {
+		983BBD9522BE687D00BDA279 = {
 			isa = PBXGroup;
 			children = (
-				EB7A357A229923FF004FEC0E /* Cassini */,
-				EB7A3579229923FF004FEC0E /* Products */,
+				983BBDA022BE687D00BDA279 /* Cassini */,
+				983BBD9F22BE687D00BDA279 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		EB7A3579229923FF004FEC0E /* Products */ = {
+		983BBD9F22BE687D00BDA279 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EB7A3578229923FF004FEC0E /* Cassini.app */,
+				983BBD9E22BE687D00BDA279 /* Cassini.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		EB7A357A229923FF004FEC0E /* Cassini */ = {
+		983BBDA022BE687D00BDA279 /* Cassini */ = {
 			isa = PBXGroup;
 			children = (
-				EB7A358D2299242E004FEC0E /* Supporting Files */,
-				EB7A357F229923FF004FEC0E /* Main.storyboard */,
-				EB7A358E229924BA004FEC0E /* ImageViewController.swift */,
-				EB7A35922299376D004FEC0E /* AvengersViewController.swift */,
-				EB7A3590229927B3004FEC0E /* AvengersURL.swift */,
-				EB7A358722992402004FEC0E /* Info.plist */,
+				983BBDB322BE688A00BDA279 /* Supporting Files */,
+				983BBDA322BE687D00BDA279 /* ImageViewController.swift */,
+				983BBDB422BE6B6500BDA279 /* DemoURL.swift */,
+				983BBDA522BE687D00BDA279 /* Main.storyboard */,
+				983BBDAD22BE687D00BDA279 /* Info.plist */,
 			);
 			path = Cassini;
 			sourceTree = "<group>";
 		};
-		EB7A358D2299242E004FEC0E /* Supporting Files */ = {
+		983BBDB322BE688A00BDA279 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				EB7A357B229923FF004FEC0E /* AppDelegate.swift */,
-				EB7A358222992402004FEC0E /* Assets.xcassets */,
-				EB7A358422992402004FEC0E /* LaunchScreen.storyboard */,
+				983BBDA122BE687D00BDA279 /* AppDelegate.swift */,
+				983BBDA822BE687D00BDA279 /* Assets.xcassets */,
+				983BBDAA22BE687D00BDA279 /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -81,13 +78,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EB7A3577229923FF004FEC0E /* Cassini */ = {
+		983BBD9D22BE687D00BDA279 /* Cassini */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EB7A358A22992402004FEC0E /* Build configuration list for PBXNativeTarget "Cassini" */;
+			buildConfigurationList = 983BBDB022BE687D00BDA279 /* Build configuration list for PBXNativeTarget "Cassini" */;
 			buildPhases = (
-				EB7A3574229923FF004FEC0E /* Sources */,
-				EB7A3575229923FF004FEC0E /* Frameworks */,
-				EB7A3576229923FF004FEC0E /* Resources */,
+				983BBD9A22BE687D00BDA279 /* Sources */,
+				983BBD9B22BE687D00BDA279 /* Frameworks */,
+				983BBD9C22BE687D00BDA279 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -95,25 +92,25 @@
 			);
 			name = Cassini;
 			productName = Cassini;
-			productReference = EB7A3578229923FF004FEC0E /* Cassini.app */;
+			productReference = 983BBD9E22BE687D00BDA279 /* Cassini.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		EB7A3570229923FF004FEC0E /* Project object */ = {
+		983BBD9622BE687D00BDA279 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1020;
-				ORGANIZATIONNAME = "明凯张";
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = mingkai;
 				TargetAttributes = {
-					EB7A3577229923FF004FEC0E = {
-						CreatedOnToolsVersion = 10.2.1;
+					983BBD9D22BE687D00BDA279 = {
+						CreatedOnToolsVersion = 9.4;
 					};
 				};
 			};
-			buildConfigurationList = EB7A3573229923FF004FEC0E /* Build configuration list for PBXProject "Cassini" */;
+			buildConfigurationList = 983BBD9922BE687D00BDA279 /* Build configuration list for PBXProject "Cassini" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -121,56 +118,55 @@
 				en,
 				Base,
 			);
-			mainGroup = EB7A356F229923FF004FEC0E;
-			productRefGroup = EB7A3579229923FF004FEC0E /* Products */;
+			mainGroup = 983BBD9522BE687D00BDA279;
+			productRefGroup = 983BBD9F22BE687D00BDA279 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EB7A3577229923FF004FEC0E /* Cassini */,
+				983BBD9D22BE687D00BDA279 /* Cassini */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		EB7A3576229923FF004FEC0E /* Resources */ = {
+		983BBD9C22BE687D00BDA279 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB7A358622992402004FEC0E /* LaunchScreen.storyboard in Resources */,
-				EB7A358322992402004FEC0E /* Assets.xcassets in Resources */,
-				EB7A3581229923FF004FEC0E /* Main.storyboard in Resources */,
+				983BBDAC22BE687D00BDA279 /* LaunchScreen.storyboard in Resources */,
+				983BBDA922BE687D00BDA279 /* Assets.xcassets in Resources */,
+				983BBDA722BE687D00BDA279 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		EB7A3574229923FF004FEC0E /* Sources */ = {
+		983BBD9A22BE687D00BDA279 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB7A358F229924BA004FEC0E /* ImageViewController.swift in Sources */,
-				EB7A35932299376D004FEC0E /* AvengersViewController.swift in Sources */,
-				EB7A357C229923FF004FEC0E /* AppDelegate.swift in Sources */,
-				EB7A3591229927B3004FEC0E /* AvengersURL.swift in Sources */,
+				983BBDA422BE687D00BDA279 /* ImageViewController.swift in Sources */,
+				983BBDA222BE687D00BDA279 /* AppDelegate.swift in Sources */,
+				983BBDB522BE6B6500BDA279 /* DemoURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EB7A357F229923FF004FEC0E /* Main.storyboard */ = {
+		983BBDA522BE687D00BDA279 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EB7A3580229923FF004FEC0E /* Base */,
+				983BBDA622BE687D00BDA279 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		EB7A358422992402004FEC0E /* LaunchScreen.storyboard */ = {
+		983BBDAA22BE687D00BDA279 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				EB7A358522992402004FEC0E /* Base */,
+				983BBDAB22BE687D00BDA279 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -178,7 +174,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		EB7A358822992402004FEC0E /* Debug */ = {
+		983BBDAE22BE687D00BDA279 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -229,9 +225,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -239,7 +234,7 @@
 			};
 			name = Debug;
 		};
-		EB7A358922992402004FEC0E /* Release */ = {
+		983BBDAF22BE687D00BDA279 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -284,9 +279,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -294,12 +288,11 @@
 			};
 			name = Release;
 		};
-		EB7A358B22992402004FEC0E /* Debug */ = {
+		983BBDB122BE687D00BDA279 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HHEVQK4H5T;
 				INFOPLIST_FILE = Cassini/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -307,17 +300,16 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.mikezhang.Cassini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		EB7A358C22992402004FEC0E /* Release */ = {
+		983BBDB222BE687D00BDA279 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HHEVQK4H5T;
 				INFOPLIST_FILE = Cassini/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -325,7 +317,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cc.mikezhang.Cassini;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -333,25 +325,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EB7A3573229923FF004FEC0E /* Build configuration list for PBXProject "Cassini" */ = {
+		983BBD9922BE687D00BDA279 /* Build configuration list for PBXProject "Cassini" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EB7A358822992402004FEC0E /* Debug */,
-				EB7A358922992402004FEC0E /* Release */,
+				983BBDAE22BE687D00BDA279 /* Debug */,
+				983BBDAF22BE687D00BDA279 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		EB7A358A22992402004FEC0E /* Build configuration list for PBXNativeTarget "Cassini" */ = {
+		983BBDB022BE687D00BDA279 /* Build configuration list for PBXNativeTarget "Cassini" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EB7A358B22992402004FEC0E /* Debug */,
-				EB7A358C22992402004FEC0E /* Release */,
+				983BBDB122BE687D00BDA279 /* Debug */,
+				983BBDB222BE687D00BDA279 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = EB7A3570229923FF004FEC0E /* Project object */;
+	rootObject = 983BBD9622BE687D00BDA279 /* Project object */;
 }

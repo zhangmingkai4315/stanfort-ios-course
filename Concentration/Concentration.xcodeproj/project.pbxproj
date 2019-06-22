@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		982772AC22BE0B9200736399 /* VCLLogingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982772AB22BE0B9200736399 /* VCLLogingViewController.swift */; };
 		9838750422BA638B0050605B /* ConcentrationThemeChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9838750322BA638B0050605B /* ConcentrationThemeChooserViewController.swift */; };
 		98EC066E22A216F3005D2CF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EC066D22A216F3005D2CF8 /* AppDelegate.swift */; };
 		98EC067022A216F3005D2CF8 /* ConcentrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EC066F22A216F3005D2CF8 /* ConcentrationViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		982772AB22BE0B9200736399 /* VCLLogingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCLLogingViewController.swift; sourceTree = "<group>"; };
 		9838750322BA638B0050605B /* ConcentrationThemeChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcentrationThemeChooserViewController.swift; sourceTree = "<group>"; };
 		98EC066A22A216F3005D2CF8 /* Concentration.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concentration.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98EC066D22A216F3005D2CF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				98EC067F22A2170D005D2CF8 /* supporting files */,
 				98EC066F22A216F3005D2CF8 /* ConcentrationViewController.swift */,
 				9838750322BA638B0050605B /* ConcentrationThemeChooserViewController.swift */,
+				982772AB22BE0B9200736399 /* VCLLogingViewController.swift */,
 				98EC067122A216F3005D2CF8 /* Main.storyboard */,
 				98EC068022A22786005D2CF8 /* Concentration.swift */,
 				98EC067922A216F3005D2CF8 /* Info.plist */,
@@ -151,6 +154,7 @@
 			files = (
 				9838750422BA638B0050605B /* ConcentrationThemeChooserViewController.swift in Sources */,
 				98EC067022A216F3005D2CF8 /* ConcentrationViewController.swift in Sources */,
+				982772AC22BE0B9200736399 /* VCLLogingViewController.swift in Sources */,
 				98EC066E22A216F3005D2CF8 /* AppDelegate.swift in Sources */,
 				98EC068122A22786005D2CF8 /* Concentration.swift in Sources */,
 			);

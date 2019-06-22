@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-class ConcentrationThemeChooserViewController: UIViewController,UISplitViewControllerDelegate {
+import Foundation
+class ConcentrationThemeChooserViewController: VCLLoggingViewController,UISplitViewControllerDelegate {
     
     let themes = [
         "Sports" : "🏊‍♂️🏋🏿‍♂️🤼‍♀️🚣🏿‍♂️🧗‍♀️🏇🏿🧘‍♀️🤾🏿‍♂️🏌️‍♀️🤸‍♀️",
@@ -18,9 +18,15 @@ class ConcentrationThemeChooserViewController: UIViewController,UISplitViewContr
     
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         splitViewController?.delegate = self
     }
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true){ timer in
+//            print("counter...")
+//        }
+    }
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         if let cvc = secondaryViewController as?ConcentrationViewController{
             if cvc.theme == nil{
@@ -29,8 +35,6 @@ class ConcentrationThemeChooserViewController: UIViewController,UISplitViewContr
         }
         return false
     }
-    
-    
     
     @IBAction func changeTheme(_ sender: Any) {
         if let cvc = splitViewDetailConcentrationViewController{

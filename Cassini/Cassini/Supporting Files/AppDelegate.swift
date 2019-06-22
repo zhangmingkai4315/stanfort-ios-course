@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Cassini
 //
-//  Created by 明凯张 on 2019/5/25.
-//  Copyright © 2019 明凯张. All rights reserved.
+//  Created by mingkai on 2019/6/22.
+//  Copyright © 2019年 mingkai. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
     }

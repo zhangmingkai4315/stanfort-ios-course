@@ -1,87 +1,80 @@
 //
-//  ImageViewController.swift
+//  ViewController.swift
 //  Cassini
 //
-//  Created by 明凯张 on 2019/5/25.
-//  Copyright © 2019 明凯张. All rights reserved.
+//  Created by mingkai on 2019/6/22.
+//  Copyright © 2019年 mingkai. All rights reserved.
 //
 
 import UIKit
 
-class ImageViewController: UIViewController
-{
-    var imageURL: URL?{
-        didSet{
-            image = nil
-            fetchImage()
-        }
+class ImageViewController: UIViewController, UIScrollViewDelegate {
+    
+    internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
     }
     
-//    private func fetchImage(){
-//        if let url = imageURL{
-//            let urlContent = try? Data(contentsOf: url)
-//            if let imageData = urlContent{
-//                image = UIImage(data:imageData)
-//            }
-//        }
-//    }
-    
-    private func fetchImage(){
-        if let url = imageURL{
-            spinner?.startAnimating()
-            DispatchQueue.global(qos: .userInitiated).async {[weak self] in
-                let urlContent = try? Data(contentsOf: url)
-                if let imageData = urlContent, url == self?.imageURL{
-                    // set ui should in main queue
-                    DispatchQueue.main.async {
-                        self?.image = UIImage(data:imageData)
-                    }
-                }
-            }
-        }
-    }
-    
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
-    
-    @IBOutlet weak var scrollView: UIScrollView!{
-        didSet{
-            scrollView.delegate = self
-            scrollView.minimumZoomScale = 0.03
-            scrollView.maximumZoomScale = 1.0
-            scrollView.contentSize = imageView.frame.size
-            scrollView.addSubview(imageView)
-        }
-    }
-    
-    fileprivate var imageView = UIImageView()
-    private var image: UIImage? {
+    private var image:UIImage?{
         get {
             return imageView.image
         }
         set {
             imageView.image = newValue
             imageView.sizeToFit()
-            scrollView?.contentSize = imageView.frame.size
-            spinner?.stopAnimating()
+            scrollView.contentSize = imageView.frame.size
         }
     }
     
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if image == nil{
-            fetchImage()
+    var imageView = UIImageView()
+    
+    
+    var imageURL: URL?{
+        didSet{
+            image = nil
+            // 检查是否当前view窗口可用
+            if view.window != nil{
+                fetchImage()
+            }
         }
     }
-}
-
-
-extension ImageViewController: UIScrollViewDelegate
-{
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return imageView
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if imageView.image == nil{
+            fetchImage()
+            
+        }
     }
+    @IBOutlet weak var scrollView: UIScrollView!{
+        didSet{
+            scrollView.minimumZoomScale = 1/25
+            scrollView.maximumZoomScale = 2
+            scrollView.delegate = self
+            scrollView.addSubview(imageView)
+        }
+    }
+    
+    private func fetchImage(){
+        if let url = imageURL{
+            let urlContents = try? Data(contentsOf: url)
+            if let imageData = urlContents{
+                image = UIImage(data: imageData)
+            }
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if imageURL == nil{
+            imageURL = DemoURLs.nasa0
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+
 }
+
