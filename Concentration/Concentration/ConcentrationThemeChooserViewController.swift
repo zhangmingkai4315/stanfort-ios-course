@@ -11,9 +11,9 @@ import Foundation
 class ConcentrationThemeChooserViewController: VCLLoggingViewController,UISplitViewControllerDelegate {
     
     let themes = [
-        "Sports" : "🏊‍♂️🏋🏿‍♂️🤼‍♀️🚣🏿‍♂️🧗‍♀️🏇🏿🧘‍♀️🤾🏿‍♂️🏌️‍♀️🤸‍♀️",
-        "Animals": "🐝🐛🦋🐌🐚🐞🐜🦗🕷🦈",
-        "Faces": "😀😁😂🤣🤗🤩🤔🤨😨😩",
+        "Sports" : "🏊‍♂️🏋🏿‍♂️🤼‍♀️🚣🏿‍♂️🧗‍♀️🏇🏿🧘‍♀️🤾🏿‍♂️🏌️‍♀️🤸‍♀️⛸🥌🛷🎿",
+        "Animals": "🐝🐛🦋🐌🐚🐞🐜🦗🕷🦈🦅🦉🦇🐺",
+        "Faces": "😀😁😂🤣🤗🤩🤔🤨😨😩💀🤡🧛‍♂️💆‍♀️",
     ]
     
     

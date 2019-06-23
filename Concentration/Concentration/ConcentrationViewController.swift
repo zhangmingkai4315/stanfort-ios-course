@@ -13,7 +13,7 @@ class ConcentrationViewController: VCLLoggingViewController {
     private lazy var game  = Concentration(numberOfPairsOfCards:numberOfPairsOfCards)
     
     var numberOfPairsOfCards: Int{
-        return (cardButtons.count+1)/2
+        return (visibleCardButtons.count+1)/2
     }
     
     private(set) var flipCount = 0{
@@ -27,18 +27,33 @@ class ConcentrationViewController: VCLLoggingViewController {
             .strokeWidth: 5.0,
             .strokeColor: UIColor.black,
             ]
-        let attributedString = NSAttributedString(string: "Flips: \(flipCount)", attributes: attributes)
+        let attributedString = NSAttributedString(string: traitCollection.verticalSizeClass == .compact ? "Counter \n \(flipCount)":"Counter :\(flipCount)", attributes: attributes)
         flipCounterLabel.attributedText=attributedString
+    }
+    // 更新视图的时候切换
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updateFlipCountLabel()
     }
     
     @IBOutlet private var cardButtons: [UIButton]!
+    
+    private var visibleCardButtons: [UIButton]!{
+        return cardButtons?.filter{!$0.superview!.isHidden}
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateViewFromModal()
+    }
+    
     @IBOutlet private weak var flipCounterLabel: UILabel!{
         didSet{
             updateFlipCountLabel()
         }
     }
     @IBAction private func touchCard(_ sender: UIButton) {
-        if let cardNumber = cardButtons.index(of: sender){
+        if let cardNumber = visibleCardButtons.index(of: sender){
             flipCount += 1
             game.chooseCard(at: cardNumber)
             updateViewFromModal()
@@ -49,9 +64,9 @@ class ConcentrationViewController: VCLLoggingViewController {
     }
     
     private func updateViewFromModal() {
-        if cardButtons != nil{
-            for index in cardButtons.indices{
-                let button = cardButtons[index]
+        if visibleCardButtons != nil{
+            for index in visibleCardButtons.indices{
+                let button = visibleCardButtons[index]
                 let card = game.cards[index]
                 if card.isFaceUp{
                     button.setTitle(emoji(for: card), for: .normal)
