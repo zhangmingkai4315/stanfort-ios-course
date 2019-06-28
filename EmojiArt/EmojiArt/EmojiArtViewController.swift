@@ -12,6 +12,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     UIScrollViewDelegate,
     UICollectionViewDelegate,
     UICollectionViewDataSource,
+    UICollectionViewDelegateFlowLayout,
     UICollectionViewDragDelegate,
     UICollectionViewDropDelegate
 {
@@ -19,6 +20,42 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     @IBOutlet weak var dropZone: UIView!{
         didSet{
             dropZone.addInteraction(UIDropInteraction(delegate: self))
+        }
+    }
+    private var addingEmoji = false
+    
+    @IBAction func addEmoji(_ sender: Any) {
+        addingEmoji = true
+        emojiCollectionView.reloadSections(IndexSet(integer: 0))
+    }
+    
+    // UICollectionViewDataSource
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return emojis.count
+        default:
+            return 0
+        }
+    }
+	
+    // UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if addingEmoji && indexPath.section == 0 {
+            return CGSize(width: 300, height: 80)
+        }
+        return CGSize(width: 80, height: 80)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let inputCell = cell as? TextFieldCollectionViewCell{
+            inputCell.textField.becomeFirstResponder()
         }
     }
     
@@ -54,7 +91,7 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     
     // 实现在对象上的拖拽功能获取拖拽的元素
     private func dragItems(at indexPath: IndexPath)->[UIDragItem]{
-        if let attributedString = ((emojiCollectionView.cellForItem(at: indexPath)) as? EmojiCollectionViewCell)?.label.attributedText{
+        if !addingEmoji, let attributedString = ((emojiCollectionView.cellForItem(at: indexPath)) as? EmojiCollectionViewCell)?.labelText.attributedText{
             let dragItem = UIDragItem(itemProvider: NSItemProvider(object: attributedString))
             dragItem.localObject = attributedString
             return [dragItem]
@@ -62,64 +99,97 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
         return []
     }
     
-    // drop collection item
-    
+    // MARK: UICollectionViewDropDelegate
+
+
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: NSAttributedString.self)
     }
     
+    // 仅限于section 1的drop否则取消drop
     func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        
-        
-        let isSelf = (session.localDragSession?.localContext as? UICollectionView) == collectionView
-        
-        return UICollectionViewDropProposal(operation: isSelf ? .copy: .move, intent: .insertAtDestinationIndexPath)
+        if let indexPath = destinationIndexPath, indexPath.section == 1{
+            let isSelf = (session.localDragSession?.localContext as? UICollectionView) == collectionView
+            return UICollectionViewDropProposal(operation: isSelf ? .copy: .move, intent: .insertAtDestinationIndexPath)
+        }else{
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator)
+    {
         let destinationIndexPath = coordinator.destinationIndexPath ?? IndexPath(item: 0, section: 0)
         for item in coordinator.items{
             if let sourceIndexPath = item.sourceIndexPath {
-                if let attributedString = item.dragItem.localObject as? NSAttributedString{
+                 // 来自于collectionView本身的itemdrop
+                if let attributedString = item.dragItem.localObject as? NSAttributedString {
                     // 针对模型和controller同时操作的时候可以使用批量更新
                     collectionView.performBatchUpdates({
-                        emojis.remove(at: sourceIndexPath.item)
-                        emojis.insert(attributedString.string, at: destinationIndexPath.item)
+                        self.emojis.remove(at: sourceIndexPath.item)
+                        self.emojis.insert(attributedString.string, at: destinationIndexPath.item)
                         collectionView.deleteItems(at: [sourceIndexPath])
                         collectionView.insertItems(at: [destinationIndexPath])
                     })
                     // 增加drop的动画
                     coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 }
+            } else {
+                let placeHolderContext = coordinator.drop(
+                    item.dragItem,
+                    to: UICollectionViewDropPlaceholder(
+                        insertionIndexPath: destinationIndexPath,
+                        reuseIdentifier: "DropPlaceHolderCell")
+                )
+                item.dragItem.itemProvider.loadObject(ofClass: NSAttributedString.self){ (provider, error) in
+                    DispatchQueue.main.async {
+                        if let attributeString = provider as? NSAttributedString{
+                            placeHolderContext.commitInsertion(dataSourceUpdates: {insertionIndexPath in
+                                self.emojis.insert(attributeString.string, at: insertionIndexPath.item)
+                            })
+                        }else{
+                            placeHolderContext.deletePlaceholder()
+                        }
+                    }
+                }
             }
         }
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return emojis.count
-    }
     
     private var font : UIFont{
         return UIFontMetrics(forTextStyle: .body).scaledFont(for: UIFont.preferredFont(forTextStyle: .body).withSize(64.0))
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "emojiCell", for: indexPath)
-        if let emojiCell = cell as? EmojiCollectionViewCell{
-            let text = NSAttributedString(string: emojis[indexPath.item], attributes: [.font: font])
-            emojiCell.label.attributedText = text
+        if indexPath.section == 1{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiCell", for: indexPath)
+            if let emojiCell = cell as? EmojiCollectionViewCell{
+                let text = NSAttributedString(string: emojis[indexPath.item], attributes: [.font: font])
+                emojiCell.labelText.attributedText = text
+            }
+            return cell
+        }else if addingEmoji {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmojiInputCell", for: indexPath)
+            
+            if let inputCell = cell as? TextFieldCollectionViewCell{
+                inputCell.resignationHandler = { [weak self, unowned inputCell] in
+                    if let text = inputCell.textField.text{
+                        self?.emojis = (text.map{ String($0) } + self!.emojis).uniquified
+                    }
+                    self?.addingEmoji=false
+                    self?.emojiCollectionView.reloadData()
+                }
+            }
+            
+            
+            return cell
+        }else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddEmojiButtonCell", for: indexPath)
+            return cell
         }
-        return cell
     }
     
-    
-    
-    
-    
-    
-    
-    
+
     @IBOutlet weak var scrollView: UIScrollView!{
         didSet{
             scrollView.minimumZoomScale = 0.1
