@@ -37,13 +37,26 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let url = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("untitled.json"){
-            if let jsonData = try? Data(contentsOf: url){
-                emojiArt = EmojiArt(json: jsonData)
-            }
+        document?.open{ success in
+            if success{
+                self.title = self.document?.localizedName
+                self.emojiArt = self.document?.emojiArt
+            }  
         }
     }
     
+    
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        if let url = try? FileManager.default.url(
+//                    for: .documentDirectory,
+//                    in: .userDomainMask,
+//                    appropriateFor: nil,
+//                    create: true
+//            ).appendingPathComponent("untitled1.json"){
+//              document = EmojiArtDocument(fileURL: url)
+//        }
+//    }
     
     // Model
     var emojiArt : EmojiArt? {
@@ -75,28 +88,24 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
         }
     }
     
-    @IBAction func save(_ sender: UIBarButtonItem) {
-        
-        if let json = emojiArt?.json{
-//            if let jsonString = String(data: json, encoding: .utf8){
-//                   print(jsonString)
-//            }
-            if let url = try? FileManager.default.url(
-                for: .documentDirectory,
-                in: .userDomainMask,
-                appropriateFor: nil,
-                create: true
-            ).appendingPathComponent("untitled.json"){
-                do{
-                    try json.write(to: url)
-                    print("save success")
-                }catch let error{
-                    print("save error:\(error)")
-                }
-            }
-            
+    var document: EmojiArtDocument?
+    
+    @IBAction func close(_ sender: UIBarButtonItem) {
+        save()
+        if document?.emojiArt != nil{
+           document?.thumbnail = emojiArtView.snapshot
         }
-        
+        dismiss(animated: true){
+            self.document?.close()
+        }
+    }
+    
+    @IBAction func save(_ sender: UIBarButtonItem? = nil) {
+        document?.emojiArt = emojiArt
+
+        if document?.emojiArt != nil{
+            document?.updateChangeCount(.done)
+        }
     }
     // StoryBoard
     @IBOutlet weak var dropZone: UIView!{
@@ -157,6 +166,9 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
             emojiCollectionView.dataSource = self
             emojiCollectionView.dragDelegate = self
             emojiCollectionView.dropDelegate = self
+            
+            // 该选项在ipad默认为true,而在iphone上默认为false关闭拖拽的功能
+            emojiCollectionView.dragInteractionEnabled = true
         }
     }
     
@@ -318,7 +330,27 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
         return UIDropProposal(operation: .copy)
     }
-    
+    private var suppressBadURLWarning = false
+    private func presentBadURLWarning(for url:URL?){
+        if suppressBadURLWarning == false{
+        let alert = UIAlertController(
+            title: "Image transfer failed",
+            message: "Could not transfer the dropped image from remote\n Show this warning in the future?",
+            preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Keep Waning", style: .default))
+        alert.addAction(
+            UIAlertAction(
+                title: "Stop Waning",
+                style: .destructive,
+                handler:{ action in
+                    self.suppressBadURLWarning = true
+                }
+            )
+        )
+        present(alert, animated: true)
+            
+        }
+    }
     func dropInteraction(_ interaction: UIDropInteraction, performDrop session: UIDropSession) {
         
         imageFetcher = ImageFetcher(){(url, image) in
@@ -329,7 +361,17 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
         
         session.loadObjects(ofClass: NSURL.self){ nsurls in
             if let url = nsurls.first as? URL{
-                self.imageFetcher.fetch(url)
+//                self.imageFetcher.fetch(url)
+                DispatchQueue.global(qos:.userInitiated).async {
+                    if let imageData = try?Data(contentsOf: url.imageURL), let image = UIImage(data: imageData){
+                        DispatchQueue.main.async {
+                            self.emojiArtBackgroundImage = (url, image)
+//                            self.documentChanged()
+                        }
+                    }else{
+                        self.presentBadURLWarning(for: url)
+                    }
+                }
             }
         }
         
@@ -346,11 +388,6 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     
     
     var emojiArtView = EmojiArtView()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
