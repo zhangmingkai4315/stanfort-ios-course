@@ -29,18 +29,68 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     UICollectionViewDataSource,
     UICollectionViewDelegateFlowLayout,
     UICollectionViewDragDelegate,
-    UICollectionViewDropDelegate
+    UICollectionViewDropDelegate,
+    UIPopoverPresentationControllerDelegate
+    // EmojiArtViewDelegate
 {
 
+    // Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDocumentInfo" {
+            if let destination = segue.destination.contents as? DocumentInfoViewController{
+                document?.thumbnail = emojiArtView.snapshot
+                destination.document = document
+                
+                if let ppc = destination.popoverPresentationController {
+                    ppc.delegate = self
+                    
+                }
+            }
+        }else if segue.identifier == "Embed Document Info"{
+            embeddedDocInfo = segue.destination.contents as? DocumentInfoViewController
+        }
+    }
+
+    private var embeddedDocInfo: DocumentInfoViewController?
+    
+    // Popover Delegate 使其像ipad一样弹出，而不是占据全屏
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    
+    
+    // unwind segue
+    @IBAction func close(bySegue: UIStoryboardSegue){
+        close()
+    }
+    
+    
     // life cycle
+    
+    private var documentObserver: NSObjectProtocol?
+    
+    private var emojiArtViewObserver: NSObjectProtocol?
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        documentObserver = NotificationCenter.default.addObserver(forName: Notification.Name.UIDocumentStateChanged, object: document, queue: OperationQueue.main, using:{ notification in
+                print("document state change to \(self.document!.documentState)")
+            if self.document!.documentState == .normal, let docInfoVC = self.embeddedDocInfo{
+                docInfoVC.document = self.document
+                self.embededDocInfoWidth.constant = docInfoVC.preferredContentSize.width
+                self.embededDocInfoHeight.constant = docInfoVC.preferredContentSize.height
+            }
+        })
         document?.open{ success in
             if success{
                 self.title = self.document?.localizedName
                 self.emojiArt = self.document?.emojiArt
+                self.emojiArtViewObserver = NotificationCenter.default.addObserver(forName: Notification.Name.EmojiArtViewDidChange, object: self.emojiArtView, queue: OperationQueue.main, using: {notification in
+                    self.documentChanged()
+                })
             }  
         }
     }
@@ -90,12 +140,20 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     
     var document: EmojiArtDocument?
     
-    @IBAction func close(_ sender: UIBarButtonItem) {
+    @IBAction func close(_ sender: UIBarButtonItem?=nil) {
         save()
+        
+        if let observer = emojiArtViewObserver {
+            NotificationCenter.default.removeObserver(observer)
+        }
+        
         if document?.emojiArt != nil{
            document?.thumbnail = emojiArtView.snapshot
         }
-        dismiss(animated: true){
+        presentingViewController?.dismiss(animated: true){
+            if let observer = self.documentObserver{
+                NotificationCenter.default.removeObserver(observer)
+            }
             self.document?.close()
         }
     }
@@ -387,13 +445,35 @@ class EmojiArtViewController: UIViewController, UIDropInteractionDelegate,
     
     
     
+//    lazy var emojiArtView: EmojiArtView = {
+//        let eva = EmojiArtView()
+//        eva.delegate = self
+//        return eva
+//    }()
+    
     var emojiArtView = EmojiArtView()
-
+    
+    
+    func documentChanged(){
+        document?.emojiArt = emojiArt
+        if document?.emojiArt != nil{
+            print("will update change")
+            document?.updateChangeCount(.done)
+        }
+    }
+    func emojiArtViewDidChange(_ sender: EmojiArtView) {
+        documentChanged()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBOutlet weak var embededDocInfoHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var embededDocInfoWidth: NSLayoutConstraint!
+    
+    
+    
 }
 
