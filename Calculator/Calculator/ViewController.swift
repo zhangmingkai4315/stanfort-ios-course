@@ -12,6 +12,12 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var display: UILabel!
     var userIsInTheMiddleOfTyping = false
+    
+    
+    
+    
+    
+    
     private var brain = CalculatorBrain()
     
     var displayValue :Double{

@@ -11,6 +11,9 @@ import Twitter
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        searchForTweets()
+    }
     @IBOutlet weak var searchTextField: UITextField!{
         didSet{
             searchTextField.delegate = self
@@ -33,7 +36,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         didSet{
             searchTextField?.text = searchText
             searchTextField?.resignFirstResponder()
-            
+            lastTwitterRequest = nil
             tweets.removeAll()
             tableView.reloadData()
             searchForTweets()
@@ -51,7 +54,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     private var lastTwitterRequest: Twitter.Request?
     
     private func searchForTweets(){
-        if let request = twitterRequest(){
+        if let request = lastTwitterRequest?.newer ?? twitterRequest(){
             lastTwitterRequest  = request
             request.fetchTweets{ [weak self] newTweets in
                 DispatchQueue.main.async {
@@ -62,6 +65,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                     self?.refreshControl?.endRefreshing()
                 }
             }
+        }else{
+            self.refreshControl?.endRefreshing()
         }
     }
     

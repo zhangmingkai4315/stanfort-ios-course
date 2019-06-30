@@ -2,7 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../../Downloads/CS193P-DEMO-Winter-2017-master/Twitter/Twitter.xcodeproj">
+      location = "group:../../../Downloads/Twitter-Kit-iOS/TwitterCore.framework">
+   </FileRef>
+   <FileRef
+      location = "group:../../../Downloads/Twitter-Kit-iOS/TwitterKit.framework">
+   </FileRef>
+   <FileRef
+      location = "group:../../../Downloads/Twitter-Kit-iOS/TwitterKitResources.bundle">
+   </FileRef>
+   <FileRef
+      location = "group:../../../Downloads/Twitter-Kit-iOS/TwitterShareExtensionUIResources.bundle">
    </FileRef>
    <FileRef
       location = "group:Smashtag/Smashtag.xcodeproj">

@@ -1,0 +1,6 @@
+framework module Pods_Smashtag {
+  umbrella header "Pods-Smashtag-umbrella.h"
+
+  export *
+  module * { export * }
+}
